@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SunSafe Pro — Benue Health Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1A1D23">
+</head>
+<body>
+
+<header class="topbar mature">
+  <div class="brand"><div class="logo mature">S</div><div><h1>SunSafe</h1><p id="location">Benue State • Clinical Grade Monitoring</p></div></div>
+  <div class="live-pill mature"><span class="dot"></span> SYSTEM LIVE</div>
+</header>
+
+<section class="landing">
+  <div class="landing-content">
+    <span class="kicker">BENUE STATE HEALTH INTELLIGENCE PLATFORM</span>
+    <h2>Environmental health risks<br>predicted before symptoms.</h2>
+    <p>SunSafe uses predictive AI to monitor UV exposure, kidney stress, and Harmattan-induced asthma triggers specific to Benue's 36°C climate. Designed for clinicians, patients, and field workers.</p>
+    <div class="landing-stats">
+      <div><strong>12 min</strong><span>Safe sun limit in Benue</span></div>
+      <div><strong>2.8L</strong><span>Daily water requirement</span></div>
+      <div><strong>84%</strong><span>Asthma risk prediction accuracy</span></div>
+    </div>
+  </div>
+  <div class="landing-visual">
+    <div class="mini-card"><span>UV INDEX</span><strong>9.2</strong><small class="status-danger">EXTREME</small></div>
+    <div class="mini-card"><span>TEMP</span><strong>36°</strong><small>Harmattan</small></div>
+    <div class="mini-card"><span>HUMIDITY</span><strong>28%</strong><small>Dry airway risk</small></div>
+  </div>
+</section>
+
+<main class="mature-main">
+<section class="hero">
+  <div class="hero-card uv-card-mature">
+    <div class="card-head"><span class="eyebrow">UV INDEX • LIVE SENSOR</span><span class="badge danger">EXTREME RISK</span></div>
+    <div class="big-row"><div class="big" id="uvVal">9.2</div><div class="big-sub">WHO Scale 0-11+<br>Benue peak: 11:00-16:00</div></div>
+    <div class="progress-line"><div id="uvBar" style="width:92%"></div></div>
+    <div id="aiUvPred" class="alert-box danger">AI: Skin cell damage predicted in 18 mins unprotected. Immediate shade advised.</div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-card"><span class="eyebrow">TEMPERATURE</span><div class="big" id="tempVal">36°</div><span class="sub" id="aiTempPred">AI: +28% kidney load</span></div>
+    <div class="hero-card"><span class="eyebrow">HUMIDITY</span><div class="big" id="humVal">28%</div><span class="sub">Harmattan: Dry airway risk</span></div>
+  </div>
+</section>
+
+<nav class="tabs mature-tabs">
+  <button class="tab active" onclick="showTab('sun',this)">Sun Exposure</button>
+  <button class="tab" onclick="showTab('kidney',this)">Kidney AI</button>
+  <button class="tab" onclick="showTab('asthma',this)">Asthma AI</button>
+  <button class="tab" onclick="showTab('water',this)">Hydration</button>
+</nav>
+
+<div id="tab-sun" class="tab-pane">
+  <div class="card">
+    <div class="card-head"><h3>Sun Exposure Tracker</h3><span class="badge neutral">Clinical protocol</span></div>
+    <div class="timer-wrap"><div id="timerRing" class="ring mature-ring"></div><div class="timer-center"><div id="timerDisplay">00:00</div><p id="timerInfo">Safe: 12 min</p></div></div>
+    <div class="progress-line"><div id="timerBar"></div></div>
+    <div id="aiPrediction" class="alert-box neutral">AI system ready. Start monitoring to generate risk forecast.</div>
+    <div class="action-row"><button id="sunBtn" class="btn primary" onclick="toggleSun()">Start Monitoring</button><button class="btn ghost" onclick="resetTimer()">Reset</button></div>
+  </div>
+</div>
+
+<div id="tab-kidney" class="tab-pane hidden">
+  <div class="card">
+    <div class="card-head"><h3>Kidney Stress Intelligence</h3><span class="badge neutral">AI Model v2</span></div>
+    <p class="small">Model inputs: urine color (40%) + water deficit + heat + sun duration. Trained for Benue climate.</p>
+    <div class="score-box mature-score"><div><span>KIDNEY STRESS SCORE</span><strong id="kidneyScore">72/100 Moderate</strong><span id="kidneyPred">AI Forecast: Safe for 2 hours</span></div><div id="kidneyCircle" class="circle mature">72</div></div>
+  </div>
+  <div class="card">
+    <h4>Urine Color Diagnostic</h4>
+    <div class="urine-grid">
+      <button class="urine" style="background:#FFFDE7" onclick="setUrine('Clear - Overhydrated',90)"></button>
+      <button class="urine active" style="background:#FFF9C4" onclick="setUrine('Pale Yellow - Perfect',20)"></button>
+      <button class="urine" style="background:#FFEB3B" onclick="setUrine('Yellow - Drink Soon',50)"></button>
+      <button class="urine" style="background:#FBC02D" onclick="setUrine('Dark Yellow - Dehydrated!',80)"></button>
+      <button class="urine" style="background:#FF8F00" onclick="setUrine('Amber - Severe!',95)"></button>
+      <button class="urine" style="background:#5D4037" onclick="setUrine('Brown - See Doctor!',100)"></button>
+    </div>
+    <div id="urineStatus" class="alert-box success">Status: Pale Yellow — Optimal hydration</div>
+  </div>
+  <div id="kidneyAlerts"></div>
+  <div class="card">
+    <h4>Symptom Log</h4>
+    <div class="checks"><label><input type="checkbox" id="swelling"> Swelling feet</label><label><input type="checkbox" id="fatigue"> Fatigue</label><label><input type="checkbox" id="pain"> Low back pain</label><label><input type="checkbox" id="nausea"> Nausea</label></div>
+    <button class="btn primary w-full mt-3" onclick="checkKidney()">Run AI Analysis</button>
+  </div>
+</div>
+
+<div id="tab-asthma" class="tab-pane hidden">
+  <div class="card">
+    <div class="card-head"><h3>Respiratory Risk — Harmattan</h3><span class="badge danger" id="aqiBadge">UNHEALTHY</span></div>
+    <p class="small" id="asthmaAiForecast">AI forecasting Harmattan dust pattern...</p>
+    <div class="air-grid"><div class="air-box"><span>AQI</span><strong id="aqiVal">112</strong><small id="aqiLabel">Unhealthy</small></div><div class="air-box"><span>PM2.5</span><strong id="pm25">38 µg</strong><small>Threshold 35</small></div><div class="air-box"><span>PM10</span><strong id="pm10">89 µg</strong><small>Harmattan Dust</small></div><div class="air-box"><span>O₃</span><strong id="o3">42 µg</strong><small>Ozone</small></div></div>
+  </div>
+  <div class="card"><h4>Trigger Detection</h4><div id="asthmaTriggers" class="trigger-list"></div><div id="asthmaAlert" class="alert-box hidden"></div></div>
+  <div class="card"><button class="btn primary w-full" onclick="testAir()">Refresh Live Air Data</button></div>
+</div>
+
+<div id="tab-water" class="tab-pane hidden">
+  <div class="card center"><h3>Hydration Protocol — Benue</h3><div class="big" id="waterDisplay">1200 / 2800 ml</div><div class="progress-line"><div id="waterBar" style="width:42%"></div></div><div id="waterAi" class="alert-box warning mt-3">AI: You need 600ml in next 45 mins to maintain safe kidney filtration.</div></div>
+  <div class="grid2"><button class="card btn-card" onclick="addWater(250)">+250ml</button><button class="card btn-card primary-card" onclick="addWater(500)">+500ml Bottle</button></div>
+</div>
+
+<div class="chat-widget mature-chat">
+  <div class="chat-header" onclick="toggleChat()">Voice AI Assistant <span id="chatToggle">▲</span><span class="status-dot good"></span></div>
+  <div id="chatBody" class="chat-body">
+    <div id="chatBox" class="chat-box"><div class="msg ai">Benue Voice AI ready. Tap mic and speak: "My urine is dark" or "Is air safe today?" — I will respond with voice.</div></div>
+    <div class="chat-input-row">
+      <input id="userQ" placeholder="Ask clinical question..." onkeydown="if(event.key==='Enter')askAI()">
+      <button onclick="askAI()">Send</button>
+      <button id="micBtn" onclick="startVoice()" style="background:#DC2626;width:48px">🎤</button>
+      <button id="speakBtn" onclick="toggleSpeech()" style="background:#16A34A;width:48px">🔊</button>
+    </div>
+    <div id="voiceStatus" style="text-align:center;font-size:11px;color:#6B7280;padding:6px;display:none">Listening...</div>
+  </div>
+</div>
+
+</main>
+
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
+<script src="script.js"></script>
+</body>
+      </html>
